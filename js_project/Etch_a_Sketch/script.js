@@ -4,24 +4,32 @@ button.style.height=`${window.innerHeight}px`;
 button.style.flex=1;
 button.textContent="GRID";
 button.style.fontSize="90px";
-let array=[256];
 let flag=1;
 if(flag==1){
     makeGrid(16);
+    makeSketch();
     flag++;
 console.log("hey")
 }
-button.addEventListener("click",()=>{
-   
+button.addEventListener("click",takeGridNumber)
+function takeGridNumber(){
 
     let gridValue=prompt("Enter the grid segmentation.",16);
 
-    if(gridValue){
+    if(gridValue && gridValue<=100){
         flag++;
        removeprevGrid();
     makeGrid(gridValue);
-    array.push(gridValue*gridValue);}
-})
+    makeSketch();
+   
+}
+else
+{
+    takeGridNumber();
+}
+}
+
+
 document.body.appendChild(button)
 function makeGrid(value){
     const computedWidth = window.getComputedStyle(container).width;
@@ -54,10 +62,16 @@ function makeGrid(value){
         
 
     }
-    Array.from(container.children).forEach((div) => 
-        {div.addEventListener("mouseenter",hover);
-        div.addEventListener("mouseleave",resetDiv);
-        });
+    function makeSketch(){
+        Array.from(container.children).forEach((div) => 
+            {
+                console.log("yo")
+    
+                div.addEventListener("mouseenter",hover);
+            div.addEventListener("mouseleave",resetDiv);
+            });
+    }
+
     function hover(e){ 
            e.target.style.backgroundColor="gray";
         }
@@ -73,6 +87,7 @@ removeprevGrid();
     }
     return;
 }
+
 
 
 
