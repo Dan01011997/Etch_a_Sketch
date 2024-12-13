@@ -35,22 +35,7 @@ function makeGrid(value){
     const computedWidth = window.getComputedStyle(container).width;
 
     for(let i=0;i<value*value;i++){
-        /*if(value*value>=array[array.length-1]){
-            if(i<array[array.length-1] && flag!==1){
-                console.log(array[array.length-1])
-               container.children[i].style.height=`${window.innerHeight/value}px`
-    container.children[i].style.width=`${parseInt(computedWidth)/value}px`;
-    
-        
-            }
-            else{
-            */
-         
-                
-            //}
-      //  }
-          //  else
-          //  {
+
                 const div=document.createElement("div");
                 div.classList.add(i);
                 div.style.width=`${parseInt(computedWidth)/value}px`;
@@ -68,13 +53,23 @@ function makeGrid(value){
                 console.log("yo")
     
                 div.addEventListener("mouseenter",hover);
-            div.addEventListener("mouseleave",resetDiv);
-            });
+           // div.addEventListener("mouseleave",resetDiv);
+        div.addEventListener("ontouchstart",hover); 
+        container.addEventListener("ontouchmove",hover); 
+
+        });
     }
 
     function hover(e){ 
-           e.target.style.backgroundColor="gray";
-        }
+           e.target.style.backgroundColor="black";
+           //`rgb(${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)}`;
+           if(e.target.style.opacity)
+            e.target.style.opacity=`${parseFloat(e.target.style.opacity)+0.1*parseFloat(e.target.style.opacity)}`;
+          else
+          e.target.style.opacity=0.55;
+        console.log(e.target.style.opacity);
+        } 
+        
     function resetDiv(e){
             e.target.style.backgroundColor="beige";
     
@@ -87,8 +82,3 @@ removeprevGrid();
     }
     return;
 }
-
-
-
-
-
