@@ -24,3 +24,16 @@ body{
 .container .gridBox div{
     background-color: beige;
 }
+
+.buttonpannel{
+    display: flex;
+    flex-direction: column;
+gap:70px;
+justify-content: center;
+    align-items: center;
+}
+.buttonpannel button{
+    width:fit-content;
+    padding: 10px;
+    background: rgb(251, 251, 233);
+}

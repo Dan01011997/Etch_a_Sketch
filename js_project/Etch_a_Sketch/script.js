@@ -1,9 +1,21 @@
 const container=document.querySelector(".gridBox");
-const button = document.createElement("button");
-button.style.height=`${window.innerHeight}px`;
-button.style.flex=1;
-button.textContent="GRID";
-button.style.fontSize="90px";
+const buttonPannel=document.querySelector(".buttonpannel");
+const buttonGrid = document.createElement("button");
+const buttonEraser=document.createElement("button");
+const buttonMarker=document.createElement("button");
+
+buttonPannel.style.height=`${window.innerHeight}px`;
+buttonPannel.style.flex=1;
+buttonGrid.textContent="GRID";
+buttonGrid.style.fontSize="60px";
+buttonPannel.appendChild(buttonGrid);
+buttonEraser.textContent="ERASER";
+buttonEraser.style.fontSize="30px";
+buttonPannel.appendChild(buttonEraser);
+buttonMarker.textContent="MARKER";
+buttonMarker.style.fontSize="30px";
+buttonPannel.appendChild(buttonMarker);
+
 let flag=1;
 if(flag==1){
     makeGrid(16);
@@ -11,13 +23,15 @@ if(flag==1){
     flag++;
 console.log("hey")
 }
-button.addEventListener("click",takeGridNumber)
+buttonGrid.addEventListener("click",takeGridNumber)
 function takeGridNumber(){
 
     let gridValue=prompt("Enter the grid segmentation.",16);
 
     if(gridValue && gridValue<=100){
         flag++;
+        flagEraser=0;
+        flagMarker=0;
        removeprevGrid();
     makeGrid(gridValue);
     makeSketch();
@@ -30,7 +44,6 @@ else
 }
 
 
-document.body.appendChild(button)
 function makeGrid(value){
     const computedWidth = window.getComputedStyle(container).width;
 
@@ -54,6 +67,7 @@ function makeGrid(value){
     
            // div.addEventListener("mouseleave",resetDiv);
            div.addEventListener("mousedown",(e)=>{
+            console.log("bdas")
             container.addEventListener("mousemove",hover);
 
            });
@@ -69,7 +83,8 @@ function makeGrid(value){
         if (e.buttons == 0) {
             container.removeEventListener("mousemove", hover);
           } 
-           e.target.style.backgroundColor="black";
+           e.target.style.backgroundColor=getPen();
+           console.log(`flageraser; ${flagEraser} flag marker: ${flagMarker}`)
            //`rgb(${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)}`;
            if(e.target.style.opacity)
             e.target.style.opacity=`${Math.min(parseFloat(e.target.style.opacity)+0.1*parseFloat(e.target.style.opacity),1)}`;
@@ -90,3 +105,36 @@ removeprevGrid();
     }
     return;
 }
+let flagMarker=0;
+let flagEraser=0;
+function choosePen(){
+    buttonMarker.addEventListener("click",()=>{
+        flagMarker=1;
+        flagEraser=0;
+
+        getPen();
+    });
+    buttonEraser.addEventListener("click",()=>{
+        flagEraser=1;
+        flagMarker=0;
+
+        getPen();
+        console.log('hey')
+    });
+}
+function getPen(){
+if(flagMarker===1){
+buttonMarker.style.background="gray";
+buttonEraser.style.background="beige";
+    return "black";
+    
+}
+if(flagEraser===1)
+{
+    buttonEraser.style.background="gray";
+    buttonMarker.style.background="beige";
+
+
+    return "beige";}
+}
+choosePen();
