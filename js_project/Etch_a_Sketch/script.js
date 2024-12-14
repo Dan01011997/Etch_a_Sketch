@@ -52,19 +52,27 @@ function makeGrid(value){
             {
                 console.log("yo")
     
-                div.addEventListener("mouseenter",hover);
            // div.addEventListener("mouseleave",resetDiv);
-        div.addEventListener("ontouchstart",hover); 
-        container.addEventListener("ontouchmove",hover); 
+           div.addEventListener("mousedown",(e)=>{
+            container.addEventListener("mousemove",hover);
+
+           });
+
+       // container.addEventListener("ontouchmove",hover); 
 
         });
     }
 
     function hover(e){ 
+        e.preventDefault();
+        console.log(e.buttons)
+        if (e.buttons == 0) {
+            container.removeEventListener("mousemove", hover);
+          } 
            e.target.style.backgroundColor="black";
            //`rgb(${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)},${Math.random()*(e.clientX+e.clientY)}`;
            if(e.target.style.opacity)
-            e.target.style.opacity=`${parseFloat(e.target.style.opacity)+0.1*parseFloat(e.target.style.opacity)}`;
+            e.target.style.opacity=`${Math.min(parseFloat(e.target.style.opacity)+0.1*parseFloat(e.target.style.opacity),1)}`;
           else
           e.target.style.opacity=0.55;
         console.log(e.target.style.opacity);

@@ -22,6 +22,5 @@ body{
     width:100vh;
 }
 .container .gridBox div{
-border:.5px dotted black;
     background-color: beige;
 }
